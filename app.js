@@ -8,6 +8,7 @@ var app = express();
 
 var server = require('http').Server(app);
 var io = require('socket.io').listen(server);
+var ACTIVATION = 'false';
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,6 +25,16 @@ io.on('connection', function (socket) {
 app.get('/', function(request, response){
   response.render('index');
 });
+
+app.get('/sortear', function(request, response){
+  ACTIVATION = 'true';
+});
+
+setInterval(() => {
+  //var dt = Date.now();
+  socket.emit('emissor', ACTIVATION);
+  console.log(ACTIVATION);
+}, 5000);
 
 server.listen(porta, function () {     
   console.log("Aplicacao no ar em " + porta); 
