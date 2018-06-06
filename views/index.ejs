@@ -1,11 +1,34 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+
+<head>
+  <title>Roda da Fortuna</title>
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src="socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script>
+    var socket = io();
+    var ACTIVATION = false;
+
+    setInterval(() => {
+      //var dt = Date.now();
+      socket.emit('emissor', ACTIVATION);
+      console.log(ACTIVATION);
+    }, 5000);
+
+    function runner(){
+      ACTIVATION = true;
+    }
+
+  </script>
+</head>
+
+<body>
+  <h1>socket emmiter</h1>
+  <p>Benvindo a Roda da Fortuna!</p>
+
+  <button onclick="runner()">iniciar</button>
+
+</body>
+
 </html>

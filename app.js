@@ -21,11 +21,9 @@ io.on('connection', function (socket) {
   console.log('chegou um chamado...');
 });
 
-setInterval(()=>{
-  var dt = Date.now();
-  io.sockets.emit('emissor', dt);
-  //console.log(dt);
-}, 5000);
+app.get('/', function(request, response){
+  response.render('index');
+});
 
 server.listen(porta, function () {     
   console.log("Aplicacao no ar em " + porta); 
