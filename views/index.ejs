@@ -8,7 +8,7 @@
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script>
     var socket = io();
-    var ACTIVATION = false;
+    var ACTIVATION = 'false';
 
     setInterval(() => {
       //var dt = Date.now();
@@ -17,7 +17,7 @@
     }, 5000);
 
     function runner(){
-      ACTIVATION = true;
+      ACTIVATION = 'true';
     }
 
   </script>
