@@ -32,7 +32,7 @@ app.get('/sortear', function(request, response){
 
 setInterval(() => {
   //var dt = Date.now();
-  io.emit('emissor', ACTIVATION);
+  io.sockets.emit('emissor', ACTIVATION);
   console.log(ACTIVATION);
 }, 5000);
 
