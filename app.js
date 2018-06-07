@@ -30,11 +30,15 @@ app.get('/sortear', function(request, response){
   ACTIVATION = 'true';
 });
 
+io.sockets.on('result', function (data) {
+  io.sockets.emit('process',  data);
+});
+
 setInterval(() => {
   //var dt = Date.now();
   io.sockets.emit('emissor', ACTIVATION);
   console.log(ACTIVATION);
-}, 5000);
+}, 10000);
 
 server.listen(porta, function () {     
   console.log("Aplicacao no ar em localhost:" + porta); 
