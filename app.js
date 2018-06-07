@@ -37,6 +37,7 @@ io.sockets.on('result', function (data) {
 setInterval(() => {
   //var dt = Date.now();
   io.sockets.emit('emissor', ACTIVATION);
+  io.sockets.emit('process',  'aguardando...');
   console.log(ACTIVATION);
 }, 10000);
 
