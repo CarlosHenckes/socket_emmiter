@@ -4,9 +4,14 @@
 <head>
   <title>Roda da Fortuna</title>
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <script src="socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script>
-    
+    var socket = io();
+    socket.on('result', function (data) {
+        console.log(data);
+    });
+
     function runner(){
       $.ajax({
         url: '/sortear',

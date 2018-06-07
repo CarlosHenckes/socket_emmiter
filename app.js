@@ -37,5 +37,5 @@ setInterval(() => {
 }, 5000);
 
 server.listen(porta, function () {     
-  console.log("Aplicacao no ar em " + porta); 
+  console.log("Aplicacao no ar em localhost:" + porta); 
 });
