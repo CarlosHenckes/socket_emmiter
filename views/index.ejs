@@ -3,31 +3,117 @@
 
 <head>
   <title>Roda da Fortuna</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link rel='stylesheet' href='/stylesheets/style.css' />
+  <style>
+    label {
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      font-size: 2.0em;
+    }
+
+    .btn {
+      font-size: 1.6em;
+    }
+  </style>
   <script src="socket.io/socket.io.js"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script>
     var socket = io();
+    var slots = ['Red', 'Yellow', 'Green', 'Cyan', 'Blue', 'Magenta'];
+    var users = [];
+
     socket.on('process', function (data) {
-        console.log(data);
+      console.log(data);
+
+      if (data != undefined) {
+        var obh = "#" + data;
+        computate(data);
+        listall();
+      }
     });
 
-    function runner(){
+    function computate(cor){
+      for(var i = 0; i < users.length; i++){
+        if(users[i].cor == cor){
+          users[i].count = users[i].count + 1;
+        }
+      }
+    }
+
+    function runner() {
       $.ajax({
         url: '/sortear',
         method: 'GET'
       });
     }
 
+    $(function () {
+      $('#frmadd').on('submit', function (event) {
+        event.preventDefault();
+        var obj = $('#username');
+        var nm = obj.val(); obj.val('').focus();
+        if (nm.length <= 0) {
+          return
+          false;
+        }
+        if (users.length < 6) {
+          var user = {};
+          user["nome"] = nm;
+          user["cor"] = slots[users.length].toLowerCase();
+          user["count"] = 0;
+          users.push(user);
+        }
+        listall();
+      });
+    });
+
+    function listall() {
+      var str = "";
+      for (var i = 0; i < users.length; i++) {
+        str += '<div id="' + slots[i].toLowerCase() + '" class="row border">';
+        str += '  <div class="col-1" style="background-color: ' + slots[i] + ';">&nbsp;</div>';
+        str += '  <div class="col-10 p-2" style="font-size: 2.3em;">' + users[i].nome + '</div>';
+        str += '  <div id="placar" class="col-1 p-2" style="font-size: 2.3em;">'+ users[i].count +'</div>';
+        str += '</div>';
+      }
+      $('#list').html(str);
+    }
+
   </script>
 </head>
 
 <body>
-  <h1>socket emmiter</h1>
-  <p>Benvindo a Roda da Fortuna!</p>
 
-  <button onclick="runner()">iniciar</button>
+  <h1>Benvindo a Roda da Fortuna!</h1>
+  <div class="row">
+    <div class="col-5">
+      <p>
+        selecione os participantes do sorteio.
+      </p>
+      <form id="frmadd" class="form-inline">
+        <div class="form-group">
+          <label>
+            <strong>Nome:</strong>
+          </label>
+          <input type="text" name="user" id="username" class="form-control form-control-lg">
+          <input type="submit" value="+" class="btn btn-lg btn-light">
+        </div>
+      </form>
+      <div id="list" class="mt-4">
+      </div>
 
+
+    </div>
+    <div class="col-7">
+      <div class="d-flex flex-row-reverse">
+        <button onclick="runner()" class="btn">iniciar</button>
+      </div>
+    </div>
+  </div>
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 
 </html>

@@ -3,7 +3,7 @@ var load = require('express-load');
 var path = require('path');
 var bodyParser = require('body-parser');
 
-var porta = process.env.PORT || 3000;
+var porta = process.env.PORT || 3001;
 var app = express();
 
 var server = require('http').Server(app);
@@ -30,15 +30,15 @@ app.get('/sortear', function(request, response){
   ACTIVATION = 'true';
 });
 
-io.sockets.on('result', function (data) {
-  io.sockets.emit('process',  data);
+app.get('/result/:color', function(request, response){
+  console.log(request.params.color);
+  io.sockets.emit('process',  request.params.color);
+  return true;
 });
 
 setInterval(() => {
   //var dt = Date.now();
   io.sockets.emit('emissor', ACTIVATION);
-  io.sockets.emit('process',  'aguardando...');
-  console.log(ACTIVATION);
 }, 10000);
 
 server.listen(porta, function () {     
