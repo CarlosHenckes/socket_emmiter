@@ -36,23 +36,12 @@ app.get('/sortear', function(request, response){
 app.get('/result/:color', function(request, response){
   console.log(request.params.color);
   io.sockets.emit('process',  request.params.color);
-<<<<<<< HEAD
   //return true;
   response.json({});
-=======
-  return true;
->>>>>>> b6225ba1cfbd5debfbdb273a9003824a17586977
 });
 
-//setInterval(() => {
-  //var dt = Date.now();
-<<<<<<< HEAD
-  //io.sockets.emit('emissor', ACTIVATION);
-//}, 10000);
-=======
   io.sockets.emit('emissor', ACTIVATION);
 }, 10000);
->>>>>>> b6225ba1cfbd5debfbdb273a9003824a17586977
 
 server.listen(porta, function () {     
   console.log("Aplicacao no ar em localhost: " + porta); 

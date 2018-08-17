@@ -25,14 +25,9 @@
     socket.on('process', function (data) {
       console.log(data);
 
-<<<<<<< HEAD
       if (data != undefined && data != '44') {
         var obh = "#" + data;
         console.log('recebeu o resultado: ' + obh);
-=======
-      if (data != undefined) {
-        var obh = "#" + data;
->>>>>>> b6225ba1cfbd5debfbdb273a9003824a17586977
         computate(data);
         listall();
       }
@@ -40,11 +35,7 @@
 
     function computate(cor){
       for(var i = 0; i < users.length; i++){
-<<<<<<< HEAD
         if(users[i].cor == cor.toLowerCase()){
-=======
-        if(users[i].cor == cor){
->>>>>>> b6225ba1cfbd5debfbdb273a9003824a17586977
           users[i].count = users[i].count + 1;
         }
       }
